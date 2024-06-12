@@ -1,5 +1,6 @@
 package com.nguyent.cncfapiservice.web;
 
+import com.nguyent.cncfapiservice.cloudinary.CloudinaryErrorException;
 import com.nguyent.cncfapiservice.domain.comment.CommentNotFoundException;
 import com.nguyent.cncfapiservice.domain.comment.DeleteCommentFailureException;
 import com.nguyent.cncfapiservice.domain.interact.DeleteInteractFailureException;
@@ -99,4 +100,11 @@ public class ControllerAdvice {
     public ResponseApi handleCommentNotFoundException(CommentNotFoundException ex) {
         return new ResponseApi("Not Found", 404, ex.getLocalizedMessage(), null, null);
     }
+
+    @ExceptionHandler(CloudinaryErrorException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseApi handleCloudinaryErrorException(CloudinaryErrorException ex) {
+        return new ResponseApi("Unprocessable Entity", 422, ex.getLocalizedMessage(), null, null);
+    }
+
 }

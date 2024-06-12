@@ -33,3 +33,9 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/chat
+
+cncf-api-service:
+  cloudinary:
+    cloud-name: dl0v8gbku
+    api-secret: XuPt3no_rU3T5_fz_dCd5dhvOqo
+    api-key: 862736244281148

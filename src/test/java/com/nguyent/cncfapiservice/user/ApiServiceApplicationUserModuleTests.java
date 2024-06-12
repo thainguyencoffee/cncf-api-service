@@ -19,12 +19,16 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.shaded.com.google.common.net.HttpHeaders;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -183,13 +187,15 @@ class ApiServiceApplicationUserModuleTests {
     void whenAuthenticatedPutUsersThenOK() {
         var userUpdateDto = new UserUpdateDto("firstName update",
                 "lastName update",
-                "email@gmail.com", "10/10/2004", "Female");
-
-        var userId = "4a069652-5a37-4286-9da5-6248a734a989";
+                "email@gmail.com", "10/10/2004", "Female", null);
+        MultiValueMap<String, String> multiMap = new LinkedMultiValueMap<>();
+        multiMap.put("firstName", List.of(userUpdateDto.firstName()));
+        multiMap.put("lastName", List.of(userUpdateDto.lastName()));
+        multiMap.put("email", List.of(userUpdateDto.email()));
+        multiMap.put("birthdate", List.of(userUpdateDto.birthdate()));
         webTestClient.put().uri("/users")
                 .headers(headers -> headers.setBearerAuth(userToken.accessToken()))
-                .accept(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(userUpdateDto))
+                .body(BodyInserters.fromMultipartData(multiMap))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class)
