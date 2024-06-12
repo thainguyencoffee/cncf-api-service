@@ -9,10 +9,11 @@ This is my first Cloud Native project. Learn more [Cloud Native](https://www.cnc
 - Bạn sẽ không cần phải có gradle nằm ngủ trong máy tính của bạn, vì dự án này có một em gái gradle wrapper rồi.  
 - Bạn cần có docker và docker compose được cài đặt trên máy tính.  
 - Bạn sẽ không cần một SQL Server chạy trên máy tính, thay vào đó bạn sẽ sử dụng _docker-compose_ tại [cncf-chat-deployment](https://github.com/thainguyencoffee/cncf-chat-deployment)
-- Nếu bạn bắt đầu từ project này, hãy clone dự án [cncf-chat-deployment](https://github.com/thainguyencoffee/cncf-chat-deployment)
-  - `git clone https://github.com/thainguyencoffee/cncf-chat-deployment`
-  - Đọc hướng dẫn [tại đây](https://github.com/thainguyencoffee/cncf-chat-deployment/blob/main/README.md) và quay lại sau khi đã làm theo hướng dẫn.
-- Sau khi thiết lập **cncf-chat-deployment**. Di chuyển tới root dir và chạy lệnh sau để khởi động **cncf-api-service** `./gradlew bootRun`
+- (bỏ qua nếu đã làm) hoặc nếu bạn bắt đầu từ project này, hãy clone dự án [cncf-chat-deployment](https://github.com/thainguyencoffee/cncf-chat-deployment).
+    - `git clone https://github.com/thainguyencoffee/cncf-chat-deployment`
+    - Đọc hướng dẫn [tại đây](https://github.com/thainguyencoffee/cncf-chat-deployment/blob/main/README.md) và quay lại sau khi đã làm theo hướng dẫn.
+- Clone dự án này `git clone https://github.com/thainguyencoffee/cncf-api-service.git`
+- Di chuyển tới root dir và chạy lệnh sau để khởi động **cncf-api-service** `./gradlew bootRun`
 - Ứng dụng có sẵn tại http://localhost:9001, 
 - Quay lại thiết lập tiếp cho [cncf-edge-service](https://github.com/thainguyencoffee/cncf-edge-service/blob/main/README.md)
 - Happy coding.
