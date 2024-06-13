@@ -14,6 +14,8 @@ import java.util.UUID;
 
 public interface PostRepository extends JpaRepository<Post, UUID> {
 
+    Page<Post> findAllByDeletedIsFalse(Pageable pageable);
+
     Page<Post> findAllByUserIdAndDeleted(UUID userId, boolean isDeleted, Pageable pageable);
 
     Optional<Post> findByUserIdAndIdAndDeleted(UUID userId, UUID postId, boolean isDeleted);

@@ -6,7 +6,6 @@ import com.nguyent.cncfapiservice.domain.post.PostNotFoundException;
 import com.nguyent.cncfapiservice.domain.post.PostService;
 import com.nguyent.cncfapiservice.domain.user.UserRepresentationNotFoundException;
 import com.nguyent.cncfapiservice.domain.user.UserService;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,7 +95,7 @@ public class PostController {
 
     @PostMapping(value = "/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseApi createPost(@Valid @ModelAttribute PostDto postDto, @AuthenticationPrincipal Jwt jwt) {
+    public ResponseApi createPost(@Validated(Post.OnCreate.class) @ModelAttribute PostDto postDto, @AuthenticationPrincipal Jwt jwt) {
         log.info("Tạo một bài post cho chủ sở hữu");
         postDto.setUserId(UUID.fromString(jwt.getSubject()));
         var postCreated = postService.savePost(postDto);

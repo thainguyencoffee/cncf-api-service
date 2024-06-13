@@ -406,21 +406,51 @@
   "webAuthnPolicyPasswordlessAcceptableAaguids" : [ ],
   "webAuthnPolicyPasswordlessExtraOrigins" : [ ],
   "users" : [ {
-    "id" : "73de219b-8933-4ce5-872f-c4757ca86055",
-    "createdTimestamp" : 1717669107454,
-    "username" : "boss",
+    "id" : "622765d0-d0b3-4eb3-baec-7d5faf7caaa7",
+    "createdTimestamp" : 1718299674748,
+    "username" : "admin",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "boss",
-    "lastName" : "boss",
-    "email" : "demo1@gmail.com",
+    "firstName" : "Nguyên",
+    "lastName" : "Thái",
+    "email" : "nguyennt11032004@gmail.com",
+    "attributes" : {
+      "gender" : [ "Male" ],
+      "birthdate" : [ "2004-03-11" ]
+    },
     "credentials" : [ {
-      "id" : "c84978ca-2150-4207-a06b-5669f6b5017f",
+      "id" : "391c0a66-9633-44be-92b6-cdb8ba0c9fdc",
       "type" : "password",
       "userLabel" : "My password",
-      "createdDate" : 1717669112430,
-      "secretData" : "{\"value\":\"PmYczQO34K2Gy3x4+mKtfhKWhUCAdAZqqf0zKWHfgE4=\",\"salt\":\"etkcz+EZgpjQ6Xty3z6iRg==\",\"additionalParameters\":{}}",
+      "createdDate" : 1718299683769,
+      "secretData" : "{\"value\":\"DGyxVOXIDY1spkqcFhNuZWYIxADJSaY6rCoUQFtYYts=\",\"salt\":\"ggHmDzvhA5r5k8nPwp+j4A==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "admin", "default-roles-chat" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "457cc762-9251-4254-9c52-48816864e7a5",
+    "createdTimestamp" : 1718299887216,
+    "username" : "john",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "John",
+    "lastName" : "Mr",
+    "email" : "nguyenntph33935@fpt.edu.vn",
+    "attributes" : {
+      "gender" : [ "Male" ],
+      "birthdate" : [ "2000-03-21" ]
+    },
+    "credentials" : [ {
+      "id" : "ff6f6606-6b8b-4762-afff-85b599f75cb9",
+      "type" : "password",
+      "createdDate" : 1718299887248,
+      "secretData" : "{\"value\":\"o71vZIjroghUBnWCgr2gUg6zoaPmVGnWNtWrlmA8OGA=\",\"salt\":\"azHzlU0GjMgbuK0bLjop5w==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
     } ],
     "disableableCredentialTypes" : [ ],
@@ -447,30 +477,27 @@
     "notBefore" : 0,
     "groups" : [ ]
   }, {
-    "id" : "4a069652-5a37-4286-9da5-6248a734a989",
-    "createdTimestamp" : 1717669065621,
-    "username" : "user",
+    "id" : "6aefdecd-f723-400a-9823-8caa9a663a52",
+    "createdTimestamp" : 1718300291795,
+    "username" : "thainguyencoffee",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "Demo update firstname",
-    "lastName" : "Demo update firstname",
-    "email" : "nguyenntph33935@fpt.edu.vn",
+    "firstName" : "Thái",
+    "lastName" : "Nguyên",
+    "email" : "nguyenthainguyen11032004@gmail.com",
     "attributes" : {
-      "birthdate" : [ "2004-11-03" ],
       "gender" : [ "Male" ],
-      "picture" : [ "http://res.cloudinary.com/dl0v8gbku/image/upload/v1718226763/71822ebd-d1ab-49ad-99e3-fc4fee6341de" ]
+      "birthdate" : [ "2000-04-04" ]
     },
-    "credentials" : [ {
-      "id" : "4f450e10-799f-4e77-8256-504a7788b487",
-      "type" : "password",
-      "userLabel" : "My password",
-      "createdDate" : 1717669480000,
-      "secretData" : "{\"value\":\"ghDKveF6LSu+FiDCcGBas4vIgUWOGmEbHu9oMKw6NEA=\",\"salt\":\"GsE3R0AccH8beEHdlSsJjA==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
-    } ],
+    "credentials" : [ ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
+    "federatedIdentities" : [ {
+      "identityProvider" : "github",
+      "userId" : "119722088",
+      "userName" : "thainguyencoffee"
+    } ],
     "realmRoles" : [ "default-roles-chat" ],
     "notBefore" : 0,
     "groups" : [ ]
@@ -720,6 +747,7 @@
     "implicitFlowEnabled" : false,
     "directAccessGrantsEnabled" : false,
     "serviceAccountsEnabled" : false,
+    "authorizationServicesEnabled" : true,
     "publicClient" : false,
     "frontchannelLogout" : false,
     "protocol" : "openid-connect",
@@ -730,7 +758,33 @@
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
     "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "email" ],
-    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ],
+    "authorizationSettings" : {
+      "allowRemoteResourceManagement" : false,
+      "policyEnforcementMode" : "ENFORCING",
+      "resources" : [ ],
+      "policies" : [ ],
+      "scopes" : [ {
+        "id" : "08dc1390-def8-4a7e-b66c-a5027fcadcff",
+        "name" : "manage"
+      }, {
+        "id" : "7b348315-88fd-44b5-89f5-42335cccbee7",
+        "name" : "view"
+      }, {
+        "id" : "1c929622-3b61-41fe-a8f3-a2c144032620",
+        "name" : "map-roles"
+      }, {
+        "id" : "e5efaac5-7826-4f2e-af99-16f1f099497c",
+        "name" : "impersonate"
+      }, {
+        "id" : "402c011b-9b1e-4b49-aa14-e62bc005f148",
+        "name" : "user-impersonated"
+      }, {
+        "id" : "c462a0dd-d0bd-43f5-bbaa-a9b997a7790d",
+        "name" : "manage-group-membership"
+      } ],
+      "decisionStrategy" : "UNANIMOUS"
+    }
   }, {
     "id" : "2176a1c2-73fe-4300-87a0-cd8236119e1b",
     "clientId" : "security-admin-console",
@@ -946,8 +1000,10 @@
       "protocolMapper" : "oidc-usermodel-attribute-mapper",
       "consentRequired" : false,
       "config" : {
+        "aggregate.attrs" : "true",
         "introspection.token.claim" : "true",
         "userinfo.token.claim" : "true",
+        "multivalued" : "true",
         "user.attribute" : "picture",
         "id.token.claim" : "true",
         "access.token.claim" : "true",
@@ -961,8 +1017,10 @@
       "protocolMapper" : "oidc-usermodel-attribute-mapper",
       "consentRequired" : false,
       "config" : {
+        "aggregate.attrs" : "false",
         "introspection.token.claim" : "true",
         "userinfo.token.claim" : "true",
+        "multivalued" : "false",
         "user.attribute" : "gender",
         "id.token.claim" : "true",
         "access.token.claim" : "true",
@@ -1033,8 +1091,10 @@
       "protocolMapper" : "oidc-usermodel-attribute-mapper",
       "consentRequired" : false,
       "config" : {
+        "aggregate.attrs" : "false",
         "introspection.token.claim" : "true",
         "userinfo.token.claim" : "true",
+        "multivalued" : "false",
         "user.attribute" : "birthdate",
         "id.token.claim" : "true",
         "access.token.claim" : "true",
@@ -1305,7 +1365,23 @@
   "enabledEventTypes" : [ ],
   "adminEventsEnabled" : false,
   "adminEventsDetailsEnabled" : false,
-  "identityProviders" : [ ],
+  "identityProviders" : [ {
+    "alias" : "github",
+    "internalId" : "b1b1d79e-6823-4a24-9a8c-f2b769dfcdc7",
+    "providerId" : "github",
+    "enabled" : true,
+    "updateProfileFirstLoginMode" : "on",
+    "trustEmail" : false,
+    "storeToken" : false,
+    "addReadTokenRoleOnCreate" : false,
+    "authenticateByDefault" : false,
+    "linkOnly" : false,
+    "firstBrokerLoginFlowAlias" : "first broker login",
+    "config" : {
+      "clientSecret" : "7f6138bf74cb7601c05068dd0ad8e9bdc3f828dd",
+      "clientId" : "Ov23lidfx2DKQOlzSfV6"
+    }
+  } ],
   "identityProviderMappers" : [ ],
   "components" : {
     "org.keycloak.services.clientregistration.policy.ClientRegistrationPolicy" : [ {
@@ -1332,7 +1408,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-usermodel-property-mapper", "saml-user-attribute-mapper", "oidc-full-name-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-full-name-mapper", "oidc-address-mapper", "saml-user-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "oidc-usermodel-attribute-mapper", "oidc-usermodel-property-mapper" ]
       }
     }, {
       "id" : "bd0a4fc0-c9f2-4c2d-b16e-b6100ab6b7c9",
@@ -1357,7 +1433,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "oidc-usermodel-attribute-mapper", "oidc-address-mapper", "saml-user-property-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-address-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper", "oidc-usermodel-property-mapper", "oidc-usermodel-attribute-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "saml-role-list-mapper" ]
       }
     }, {
       "id" : "49bb21a3-be6e-4462-b3d9-9e2630808c26",
@@ -1383,7 +1459,7 @@
       "providerId" : "declarative-user-profile",
       "subComponents" : { },
       "config" : {
-        "kc.user.profile.config" : [ "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"birthdate\",\"displayName\":\"Birthdate\",\"validations\":{},\"annotations\":{\"inputType\":\"html5-date\"},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"gender\",\"displayName\":\"Gender\",\"validations\":{\"options\":{\"options\":[\"Male\",\"Female\"]}},\"annotations\":{\"inputType\":\"select-radiobuttons\"},\"required\":{\"roles\":[\"admin\",\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"picture\",\"displayName\":\"picture\",\"permissions\":{\"edit\":[\"admin\",\"user\"],\"view\":[\"user\",\"admin\"]},\"annotations\":{},\"validations\":{},\"group\":\"userinfo\"}],\"groups\":[{\"name\":\"userinfo\",\"displayHeader\":\"User information\",\"displayDescription\":\"\",\"annotations\":{}}]}" ]
+        "kc.user.profile.config" : [ "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"birthdate\",\"displayName\":\"Birthdate\",\"validations\":{},\"annotations\":{\"inputType\":\"html5-date\"},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"gender\",\"displayName\":\"Gender\",\"validations\":{\"options\":{\"options\":[\"Male\",\"Female\"]}},\"annotations\":{\"inputType\":\"select-radiobuttons\"},\"required\":{\"roles\":[\"admin\",\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"picture\",\"displayName\":\"Picture\",\"permissions\":{\"edit\":[\"admin\"],\"view\":[\"admin\"]},\"annotations\":{},\"validations\":{},\"group\":\"userinfo\"}],\"groups\":[{\"name\":\"userinfo\",\"displayHeader\":\"User information\",\"displayDescription\":\"\",\"annotations\":{}}]}" ]
       }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {
@@ -1895,7 +1971,7 @@
     "name" : "Terms and Conditions",
     "providerId" : "TERMS_AND_CONDITIONS",
     "enabled" : false,
-    "defaultAction" : false,
+    "defaultAction" : true,
     "priority" : 20,
     "config" : { }
   }, {
@@ -1947,12 +2023,20 @@
     "priority" : 70,
     "config" : { }
   }, {
+    "alias" : "VERIFY_PROFILE",
+    "name" : "Verify Profile",
+    "providerId" : "VERIFY_PROFILE",
+    "enabled" : true,
+    "defaultAction" : false,
+    "priority" : 70,
+    "config" : { }
+  }, {
     "alias" : "webauthn-register",
     "name" : "Webauthn Register",
     "providerId" : "webauthn-register",
     "enabled" : true,
     "defaultAction" : false,
-    "priority" : 70,
+    "priority" : 80,
     "config" : { }
   }, {
     "alias" : "webauthn-register-passwordless",
@@ -1960,7 +2044,7 @@
     "providerId" : "webauthn-register-passwordless",
     "enabled" : true,
     "defaultAction" : false,
-    "priority" : 80,
+    "priority" : 1000,
     "config" : { }
   }, {
     "alias" : "update_user_locale",
@@ -1968,7 +2052,7 @@
     "providerId" : "update_user_locale",
     "enabled" : true,
     "defaultAction" : false,
-    "priority" : 1000,
+    "priority" : 1001,
     "config" : { }
   } ],
   "browserFlow" : "browser",

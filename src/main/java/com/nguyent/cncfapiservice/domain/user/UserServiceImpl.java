@@ -7,6 +7,9 @@ import com.nguyent.cncfapiservice.utils.KeycloakUtils;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.UserResource;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -31,11 +35,24 @@ public class UserServiceImpl implements UserService {
                 pageable.getOffset(), pageable.getPageSize());
 
         try (var keycloak = keycloakUtils.getKeycloak()) {
-            return keycloak.realm(REALM).users()
+            // Lấy danh sách người dùng từ Keycloak
+            List<UserRepresentation> users = keycloak.realm(REALM).users()
                     .list((int) pageable.getOffset(), pageable.getPageSize());
+            // Duyệt qua từng người dùng để lấy vai trò của họ
+            for (UserRepresentation user : users) {
+                List<RoleRepresentation> roles = getUserRoles(keycloak, user.getId());
+                // Giả định rằng UserRepresentation có phương thức setRealmRoles hoặc tương tự
+                user.setRealmRoles(roles.stream().map(RoleRepresentation::getName).collect(Collectors.toList()));
+            }
+            return users;
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    private List<RoleRepresentation> getUserRoles(Keycloak keycloak, String userId) {
+        UserResource userResource = keycloak.realm(REALM).users().get(userId);
+        return userResource.roles().realmLevel().listEffective();
     }
 
     @Override

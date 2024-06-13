@@ -78,8 +78,8 @@ class ApiServiceApplicationUserModuleTests {
                 .baseUrl(keycloakContainer.getAuthServerUrl() + "realms/chat/protocol/openid-connect/token")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .build();
-        userToken = authenticateWith("user", "1", webClient);
-        adminToken = authenticateWith("boss", "1", webClient);
+        userToken = authenticateWith("john", "1", webClient);
+        adminToken = authenticateWith("admin", "1", webClient);
     }
 
     @BeforeEach
@@ -119,7 +119,7 @@ class ApiServiceApplicationUserModuleTests {
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/users/search")
-                        .queryParam("username", "user").build()
+                        .queryParam("username", "john").build()
                 )
                 .exchange()
                 .expectStatus().isOk();
@@ -132,7 +132,7 @@ class ApiServiceApplicationUserModuleTests {
 
     @Test
     void whenUserExistsDoGetUserByUserIdThenReturn() {
-        String userId = "4a069652-5a37-4286-9da5-6248a734a989";
+        String userId = "457cc762-9251-4254-9c52-48816864e7a5";
         String message = "Get user by id successfully.";
         webTestClient.get()
                 .uri("/users/{userId}", userId)
@@ -148,7 +148,7 @@ class ApiServiceApplicationUserModuleTests {
 
     @Test
     void whenUsernameExistsDoGetUserByUsernameThenOK() {
-        var username = "user";
+        var username = "john";
         webTestClient.get().uri(uriBuilder -> uriBuilder
                         .path("/users/search")
                         .queryParam("username", username)

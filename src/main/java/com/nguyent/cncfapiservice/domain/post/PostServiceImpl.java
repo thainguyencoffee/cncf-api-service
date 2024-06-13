@@ -26,7 +26,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getAllPosts(Pageable pageable) {
         log.info("PostServiceImpl.getAllPosts");
-        return postRepository.findAll(pageable).getContent();
+        return postRepository.findAllByDeletedIsFalse(pageable).getContent();
     }
 
     @Override

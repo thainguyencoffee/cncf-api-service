@@ -77,8 +77,8 @@ public class ApiServiceApplicationInteractModuleTests {
                 .baseUrl(keycloakContainer.getAuthServerUrl() + "realms/chat/protocol/openid-connect/token")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .build();
-        userToken = authenticateWith("user", "1", webClient);
-        adminToken = authenticateWith("boss", "1", webClient);
+        userToken = authenticateWith("john", "1", webClient);
+        adminToken = authenticateWith("admin", "1", webClient);
     }
 
     @BeforeEach

@@ -38,7 +38,7 @@ public class ApiServiceApplicationPostModuleTests {
 
     public static KeycloakToken userToken;
     public static KeycloakToken adminToken;
-    protected static String USER_ID = "4a069652-5a37-4286-9da5-6248a734a989";
+    protected static String USER_ID = "457cc762-9251-4254-9c52-48816864e7a5";
 
     @Container
     private static final PostgreSQLContainer<?> postgresql =
@@ -77,8 +77,8 @@ public class ApiServiceApplicationPostModuleTests {
                 .baseUrl(keycloakContainer.getAuthServerUrl() + "realms/chat/protocol/openid-connect/token")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .build();
-        userToken = authenticateWith("user", "1", webClient);
-        adminToken = authenticateWith("boss", "1", webClient);
+        userToken = authenticateWith("john", "1", webClient);
+        adminToken = authenticateWith("admin", "1", webClient);
     }
 
     @BeforeEach
