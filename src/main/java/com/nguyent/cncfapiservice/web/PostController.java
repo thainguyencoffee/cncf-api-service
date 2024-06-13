@@ -1,15 +1,18 @@
 package com.nguyent.cncfapiservice.web;
 
 import com.nguyent.cncfapiservice.domain.post.Post;
+import com.nguyent.cncfapiservice.domain.post.PostDto;
 import com.nguyent.cncfapiservice.domain.post.PostNotFoundException;
 import com.nguyent.cncfapiservice.domain.post.PostService;
 import com.nguyent.cncfapiservice.domain.user.UserRepresentationNotFoundException;
 import com.nguyent.cncfapiservice.domain.user.UserService;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.annotation.Validated;
@@ -91,27 +94,27 @@ public class PostController {
                 null, postService.searchPosts(content, pageable));
     }
 
-    @PostMapping("/posts")
+    @PostMapping(value = "/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseApi createPost(@Validated(Post.OnCreate.class) @RequestBody Post post, @AuthenticationPrincipal Jwt jwt) {
+    public ResponseApi createPost(@Valid @ModelAttribute PostDto postDto, @AuthenticationPrincipal Jwt jwt) {
         log.info("Tạo một bài post cho chủ sở hữu");
-        post.setUserId(UUID.fromString(jwt.getSubject()));
-        var postCreated = postService.savePost(post);
+        postDto.setUserId(UUID.fromString(jwt.getSubject()));
+        var postCreated = postService.savePost(postDto);
         return new ResponseApi("CREATED", 201,
                 "Create new post successfully.", null, postCreated);
     }
 
-    @PutMapping("/posts/{postId}")
+    @PutMapping(value = "/posts/{postId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseApi updateOwnPost(@PathVariable UUID postId,
                                      @AuthenticationPrincipal Jwt jwt,
-                                     @Validated(Post.OnUpdate.class) @RequestBody Post post)
+                                     @Validated(Post.OnUpdate.class) @ModelAttribute PostDto postDto)
             throws PostNotFoundException {
         log.info("Cập nhật một bài post của chủ sở hữu, postId {}", postId.toString());
         postService.getPostByUserIdAndPostId(UUID.fromString(jwt.getSubject()), postId);
         return new ResponseApi("OK", 200,
                 "Update post with id " + postId.toString() + " successfully.",
-                null, postService.updatePostById(UUID.fromString(jwt.getSubject()), postId, post));
+                null, postService.updatePostById(UUID.fromString(jwt.getSubject()), postId, postDto));
     }
 
     @DeleteMapping("/posts/{postId}")

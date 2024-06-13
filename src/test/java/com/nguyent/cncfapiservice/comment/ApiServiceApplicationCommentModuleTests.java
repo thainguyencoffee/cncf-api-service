@@ -19,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -84,10 +86,12 @@ public class ApiServiceApplicationCommentModuleTests {
     void createFakeData() {
         // fake data
         Post post = Post.of("Fake content");
+        MultiValueMap<String, String> postMultiValueMap = new LinkedMultiValueMap<String, String>();
+        postMultiValueMap.add("content", post.getContent());
         fakePost = webTestClient.post()
                 .uri("/posts", USER_ID)
                 .headers(headers -> headers.setBearerAuth(userToken.accessToken))
-                .body(BodyInserters.fromValue(post))
+                .body(BodyInserters.fromMultipartData(postMultiValueMap))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(String.class)

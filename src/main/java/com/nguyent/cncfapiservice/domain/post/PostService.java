@@ -25,11 +25,11 @@ public interface PostService {
     Post getPostByUserIdAndPostId(UUID userId, UUID postId);
 
 
-    Post savePost(Post post);
+    Post savePost(PostDto postDto);
 
     /**
      * Update post by userId and postId*/
-    Post updatePostById(UUID userId, UUID postId, Post post);
+    Post updatePostById(UUID userId, UUID postId, PostDto postDto);
 
     /**
      * Soft delete post by userId and postId*/

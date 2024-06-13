@@ -14,6 +14,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -34,6 +36,11 @@ public class Post {
             message = "The post content must minimum length is 1 and maximum is 2000 characters")
     @Column(nullable = false)
     private String content;
+
+    @ElementCollection
+    @CollectionTable(name = "post_photos", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "photo", nullable = false)
+    private List<String> photos = new ArrayList<>();
 
     @Column(nullable = false)
     private UUID userId;
@@ -63,17 +70,19 @@ public class Post {
         return new Post(null, content,
                 null, null,
                 null, null,
-                null, 0,
-                false, null,
+                null, null,
+                0, false,
+                null,
                 null);
     }
 
     public static Post reference(UUID postId) {
-        return new Post(postId,
+        return new Post(postId, null,
                 null, null,
                 null, null,
                 null, null,
-                0, false, null,
+                0, false,
+                null,
                 null);
     }
 

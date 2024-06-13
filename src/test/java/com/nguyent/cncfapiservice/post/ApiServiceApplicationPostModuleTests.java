@@ -18,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -83,10 +85,12 @@ public class ApiServiceApplicationPostModuleTests {
     void createFakeData() {
         // fake data
         Post post = Post.of("Fake content");
+        MultiValueMap<String, String> postMultiValueMap = new LinkedMultiValueMap<String, String>();
+        postMultiValueMap.add("content", post.getContent());
         fakePost = webTestClient.post()
                 .uri("/posts", USER_ID)
                 .headers(headers -> headers.setBearerAuth(userToken.accessToken))
-                .body(BodyInserters.fromValue(post))
+                .body(BodyInserters.fromMultipartData(postMultiValueMap))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(String.class)
@@ -100,7 +104,6 @@ public class ApiServiceApplicationPostModuleTests {
                             .isNotNull();
                 }).returnResult().getResponseBody();
     }
-
     /**
      * ================ Nơi viết các test cases ================
      */
@@ -116,10 +119,12 @@ public class ApiServiceApplicationPostModuleTests {
     @Test
     void whenUnauthenticatedCreateNewPostThenReturnUnauthenticated() {
         Post post = Post.of("This is content. This is content. This is content. This is content.");
+        MultiValueMap<String, String> postMultiValueMap = new LinkedMultiValueMap<String, String>();
+        postMultiValueMap.add("content", post.getContent());
         webTestClient.post()
                 .uri("/posts")
                 .headers(headers -> headers.setBearerAuth(userToken.accessToken()))
-                .body(BodyInserters.fromValue(post))
+                .body(BodyInserters.fromMultipartData(postMultiValueMap))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(String.class)
@@ -139,10 +144,12 @@ public class ApiServiceApplicationPostModuleTests {
     void adminUpdatePostThenOK() {
         // create a demo post
         Post post = Post.of("This is content. This is content. This is content. This is content.");
+        MultiValueMap<String, String> postMultiValueMap = new LinkedMultiValueMap<String, String>();
+        postMultiValueMap.add("content", post.getContent());
         String postCreatedJson = webTestClient.post()
                 .uri("/posts")
                 .headers(headers -> headers.setBearerAuth(userToken.accessToken()))
-                .body(BodyInserters.fromValue(post))
+                .body(BodyInserters.fromMultipartData(postMultiValueMap))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(String.class)
@@ -159,11 +166,12 @@ public class ApiServiceApplicationPostModuleTests {
         String postIdCreated = JsonPath.parse(postCreatedJson).read("$.data.id");
 
         var content = "Content update";
-        Post postUpdate = Post.of(content);
+        MultiValueMap<String, String> postUpdate = new LinkedMultiValueMap<String, String>();
+        postUpdate.add("content", content);
         webTestClient.put()
                 .uri("/posts/{id}", UUID.fromString(postIdCreated))
                 .headers(headers -> headers.setBearerAuth(userToken.accessToken()))
-                .body(BodyInserters.fromValue(postUpdate))
+                .body(BodyInserters.fromMultipartData(postUpdate))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class)
@@ -175,7 +183,7 @@ public class ApiServiceApplicationPostModuleTests {
         webTestClient.put()
                 .uri("/posts/{id}", UUID.fromString(postIdCreated))
                 .headers(headers -> headers.setBearerAuth(adminToken.accessToken()))
-                .body(BodyInserters.fromValue(postUpdate))
+                .body(BodyInserters.fromMultipartData(postUpdate))
                 .exchange()
                 .expectStatus().isNotFound();
     }
@@ -184,10 +192,12 @@ public class ApiServiceApplicationPostModuleTests {
     void whenAuthenticatedUpdatePostThenOK() {
         // create a demo post
         Post post = Post.of("This is content. This is content. This is content. This is content.");
+        MultiValueMap<String, String> postMultiValueMap = new LinkedMultiValueMap<String, String>();
+        postMultiValueMap.add("content", post.getContent());
         String postCreatedJson = webTestClient.post()
                 .uri("posts")
                 .headers(headers -> headers.setBearerAuth(userToken.accessToken()))
-                .body(BodyInserters.fromValue(post))
+                .body(BodyInserters.fromMultipartData(postMultiValueMap))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(String.class)
@@ -204,11 +214,12 @@ public class ApiServiceApplicationPostModuleTests {
         String postIdCreated = JsonPath.parse(postCreatedJson).read("$.data.id");
 
         var content = "Content update";
-        Post postUpdate = Post.of(content);
+        MultiValueMap<String, String> postUpdate = new LinkedMultiValueMap<String, String>();
+        postUpdate.add("content", content);
         webTestClient.put()
                 .uri("/posts/{id}",  postIdCreated)
                 .headers(headers -> headers.setBearerAuth(userToken.accessToken()))
-                .body(BodyInserters.fromValue(postUpdate))
+                .body(BodyInserters.fromMultipartData(postUpdate))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class)

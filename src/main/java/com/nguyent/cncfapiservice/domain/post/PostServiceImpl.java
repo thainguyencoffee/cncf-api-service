@@ -1,25 +1,27 @@
 package com.nguyent.cncfapiservice.domain.post;
 
+import com.cloudinary.Cloudinary;
+import com.nguyent.cncfapiservice.cloudinary.CloudinaryUtils;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
     private static final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
     private final PostRepository postRepository;
-
-    public PostServiceImpl(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
+    private final Cloudinary cloudinary;
 
     @Override
     public List<Post> getAllPosts(Pageable pageable) {
@@ -50,8 +52,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post savePost(Post post) {
+    public Post savePost(PostDto postDto) {
         log.info("PostServiceImpl.savePost");
+        var post = new Post();
+        post.setUserId(postDto.getUserId());
+        post.setContent(postDto.getContent());
+        post.setPhotos(CloudinaryUtils.convertListMultipartFileToListUrl(postDto.getPhotos(), cloudinary));
         return postRepository.save(post);
     }
 
@@ -78,7 +84,7 @@ public class PostServiceImpl implements PostService {
                 .orElseThrow(() -> new PostNotFoundException(postId.toString()));
     }
 
-    public Post updatePostById(UUID userId, UUID postId, Post post) {
+    public Post updatePostById(UUID userId, UUID postId, PostDto postDto) {
         Post postPersisted = getPostByUserIdAndPostId(userId, postId);
         var postUpdate = new Post();
         postUpdate.setId(postPersisted.getId());
@@ -88,8 +94,31 @@ public class PostServiceImpl implements PostService {
         postUpdate.setVersion(postPersisted.getVersion());
         // update content
         postUpdate.setContent(
-                Optional.ofNullable(post.getContent())
+                Optional.ofNullable(postDto.getContent())
                         .orElse(postPersisted.getContent()));
+        // update photos
+        postUpdate.setPhotos(Optional.of(postDto.getPhotos())
+                .filter(photos -> !photos.isEmpty())
+                .map(multipartFiles -> {
+                    // handle delete old photos
+                    List<String> oldPhotos = postPersisted.getPhotos();
+                    if (!oldPhotos.isEmpty()) {
+                        oldPhotos.forEach(oldPhoto -> {
+                            var publicId = CloudinaryUtils.convertUrlToPublicId(oldPhoto);
+                            log.info("oldPhoto {}", oldPhoto);
+                            log.info("publicId {}", publicId);
+                            String status = null;
+                            try {
+                                status = CloudinaryUtils.deleteFile(publicId, cloudinary);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            log.info("deleteFile {}", status);
+                        });
+                    }
+                    // upload new picture
+                    return CloudinaryUtils.convertListMultipartFileToListUrl(multipartFiles, cloudinary);
+                }).orElseGet(postPersisted::getPhotos));
         return postRepository.save(postUpdate);
     }
 

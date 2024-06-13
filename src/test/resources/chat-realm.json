@@ -236,7 +236,7 @@
         "composite" : true,
         "composites" : {
           "client" : {
-            "realm-management" : [ "manage-identity-providers", "view-users", "manage-realm", "view-authorization", "manage-events", "manage-authorization", "query-realms", "view-events", "query-users", "manage-users", "view-realm", "view-identity-providers", "view-clients", "manage-clients", "create-client", "impersonation", "query-clients", "query-groups" ]
+            "realm-management" : [ "manage-identity-providers", "view-users", "manage-realm", "manage-authorization", "manage-events", "view-authorization", "query-realms", "view-events", "query-users", "manage-users", "view-identity-providers", "view-realm", "manage-clients", "view-clients", "create-client", "impersonation", "query-clients", "query-groups" ]
           }
         },
         "clientRole" : true,
@@ -453,12 +453,13 @@
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "demo user",
-    "lastName" : "demo user",
+    "firstName" : "Demo update firstname",
+    "lastName" : "Demo update firstname",
     "email" : "nguyenntph33935@fpt.edu.vn",
     "attributes" : {
+      "birthdate" : [ "2004-11-03" ],
       "gender" : [ "Male" ],
-      "birthdate" : [ "2004-11-03" ]
+      "picture" : [ "http://res.cloudinary.com/dl0v8gbku/image/upload/v1718226763/71822ebd-d1ab-49ad-99e3-fc4fee6341de" ]
     },
     "credentials" : [ {
       "id" : "4f450e10-799f-4e77-8256-504a7788b487",
@@ -573,7 +574,9 @@
     "publicClient" : true,
     "frontchannelLogout" : false,
     "protocol" : "openid-connect",
-    "attributes" : { },
+    "attributes" : {
+      "post.logout.redirect.uris" : "+"
+    },
     "authenticationFlowBindingOverrides" : { },
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
@@ -599,7 +602,9 @@
     "publicClient" : false,
     "frontchannelLogout" : false,
     "protocol" : "openid-connect",
-    "attributes" : { },
+    "attributes" : {
+      "post.logout.redirect.uris" : "+"
+    },
     "authenticationFlowBindingOverrides" : { },
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
@@ -633,9 +638,10 @@
     "protocol" : "openid-connect",
     "attributes" : {
       "oidc.ciba.grant.enabled" : "false",
-      "oauth2.device.authorization.grant.enabled" : "false",
       "client.secret.creation.time" : "1717668585",
       "backchannel.logout.session.required" : "true",
+      "post.logout.redirect.uris" : "+",
+      "oauth2.device.authorization.grant.enabled" : "false",
       "backchannel.logout.revoke.offline.tokens" : "false"
     },
     "authenticationFlowBindingOverrides" : { },
@@ -650,6 +656,7 @@
       "config" : {
         "user.session.note" : "client_id",
         "introspection.token.claim" : "true",
+        "userinfo.token.claim" : "true",
         "id.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "client_id",
@@ -664,6 +671,7 @@
       "config" : {
         "user.session.note" : "clientHost",
         "introspection.token.claim" : "true",
+        "userinfo.token.claim" : "true",
         "id.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "clientHost",
@@ -678,6 +686,7 @@
       "config" : {
         "user.session.note" : "clientAddress",
         "introspection.token.claim" : "true",
+        "userinfo.token.claim" : "true",
         "id.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "clientAddress",
@@ -685,7 +694,15 @@
       }
     } ],
     "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "email" ],
-    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ],
+    "authorizationSettings" : {
+      "allowRemoteResourceManagement" : true,
+      "policyEnforcementMode" : "ENFORCING",
+      "resources" : [ ],
+      "policies" : [ ],
+      "scopes" : [ ],
+      "decisionStrategy" : "UNANIMOUS"
+    }
   }, {
     "id" : "aab3a90e-6ea8-4866-9b6e-6c58e7869cb7",
     "clientId" : "realm-management",
@@ -706,7 +723,9 @@
     "publicClient" : false,
     "frontchannelLogout" : false,
     "protocol" : "openid-connect",
-    "attributes" : { },
+    "attributes" : {
+      "post.logout.redirect.uris" : "+"
+    },
     "authenticationFlowBindingOverrides" : { },
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
@@ -1116,6 +1135,7 @@
       "config" : {
         "introspection.token.claim" : "true",
         "multivalued" : "true",
+        "userinfo.token.claim" : "true",
         "user.attribute" : "foo",
         "id.token.claim" : "true",
         "access.token.claim" : "true",
@@ -1156,7 +1176,8 @@
       "config" : {
         "id.token.claim" : "true",
         "introspection.token.claim" : "true",
-        "access.token.claim" : "true"
+        "access.token.claim" : "true",
+        "userinfo.token.claim" : "true"
       }
     } ]
   }, {
@@ -1273,8 +1294,8 @@
     "ssl" : "false",
     "password" : "nratvhfenqrherqh",
     "port" : "587",
-    "replyTo" : "",
     "host" : "smtp.gmail.com",
+    "replyTo" : "",
     "from" : "nguyennt11032004@gmail.com",
     "fromDisplayName" : "Chat app",
     "user" : "nguyennt11032004@gmail.com"
@@ -1311,7 +1332,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-address-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-property-mapper", "saml-user-attribute-mapper", "saml-user-property-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "oidc-full-name-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-usermodel-property-mapper", "saml-user-attribute-mapper", "oidc-full-name-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper" ]
       }
     }, {
       "id" : "bd0a4fc0-c9f2-4c2d-b16e-b6100ab6b7c9",
@@ -1336,7 +1357,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "saml-user-property-mapper", "oidc-full-name-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "oidc-usermodel-attribute-mapper", "oidc-address-mapper", "saml-user-property-mapper" ]
       }
     }, {
       "id" : "49bb21a3-be6e-4462-b3d9-9e2630808c26",
@@ -1362,7 +1383,7 @@
       "providerId" : "declarative-user-profile",
       "subComponents" : { },
       "config" : {
-        "kc.user.profile.config" : [ "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"birthdate\",\"displayName\":\"Birthdate\",\"validations\":{},\"annotations\":{\"inputType\":\"html5-date\"},\"permissions\":{\"edit\":[\"admin\",\"user\"],\"view\":[\"admin\",\"user\"]},\"group\":\"userinfo\",\"required\":{\"roles\":[\"user\"]}},{\"name\":\"gender\",\"displayName\":\"Gender\",\"validations\":{\"options\":{\"options\":[\"Male\",\"Female\"]}},\"annotations\":{\"inputType\":\"select-radiobuttons\"},\"required\":{\"roles\":[\"admin\",\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"}],\"groups\":[{\"name\":\"userinfo\",\"displayHeader\":\"User information\",\"displayDescription\":\"\",\"annotations\":{}}]}" ]
+        "kc.user.profile.config" : [ "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"annotations\":{},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"annotations\":{},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"birthdate\",\"displayName\":\"Birthdate\",\"validations\":{},\"annotations\":{\"inputType\":\"html5-date\"},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"gender\",\"displayName\":\"Gender\",\"validations\":{\"options\":{\"options\":[\"Male\",\"Female\"]}},\"annotations\":{\"inputType\":\"select-radiobuttons\"},\"required\":{\"roles\":[\"admin\",\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"group\":\"userinfo\"},{\"name\":\"picture\",\"displayName\":\"picture\",\"permissions\":{\"edit\":[\"admin\",\"user\"],\"view\":[\"user\",\"admin\"]},\"annotations\":{},\"validations\":{},\"group\":\"userinfo\"}],\"groups\":[{\"name\":\"userinfo\",\"displayHeader\":\"User information\",\"displayDescription\":\"\",\"annotations\":{}}]}" ]
       }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {
@@ -1959,8 +1980,8 @@
   "attributes" : {
     "cibaBackchannelTokenDeliveryMode" : "poll",
     "cibaAuthRequestedUserHint" : "login_hint",
-    "oauth2DevicePollingInterval" : "5",
     "clientOfflineSessionMaxLifespan" : "0",
+    "oauth2DevicePollingInterval" : "5",
     "clientSessionIdleTimeout" : "0",
     "userProfileEnabled" : "true",
     "clientOfflineSessionIdleTimeout" : "0",

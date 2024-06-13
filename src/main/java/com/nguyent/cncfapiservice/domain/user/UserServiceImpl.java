@@ -89,11 +89,11 @@ public class UserServiceImpl implements UserService {
                                 var publicId = CloudinaryUtils.convertUrlToPublicId(oldPicture);
                                 log.info("oldPicture {}", oldPicture);
                                 log.info("publicId {}", publicId);
-                                String s = CloudinaryUtils.deleteFile(publicId, cloudinary);
-                                log.info("deleteFile {}", s);
+                                String status = CloudinaryUtils.deleteFile(publicId, cloudinary);
+                                log.info("deleteFile {}", status);
                             }
                             // upload new picture
-                            return CloudinaryUtils.uploadFile(pictureMultiPart, cloudinary);
+                            return CloudinaryUtils.convertSingleMultipartFileToUrl(pictureMultiPart, cloudinary);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }

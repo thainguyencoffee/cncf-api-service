@@ -86,10 +86,12 @@ class ApiServiceApplicationUserModuleTests {
     void createFakeData() {
         // fake data
         Post post = Post.of("Fake content");
+        MultiValueMap<String, String> postMultiValueMap = new LinkedMultiValueMap<String, String>();
+        postMultiValueMap.add("content", post.getContent());
         fakePost = webTestClient.post()
                 .uri("/posts", USER_ID)
                 .headers(headers -> headers.setBearerAuth(userToken.accessToken))
-                .body(BodyInserters.fromValue(post))
+                .body(BodyInserters.fromMultipartData(postMultiValueMap))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(String.class)
@@ -103,7 +105,6 @@ class ApiServiceApplicationUserModuleTests {
                             .isNotNull();
                 }).returnResult().getResponseBody();
     }
-
     /**
      * ================ Nơi viết các test cases ================
      */

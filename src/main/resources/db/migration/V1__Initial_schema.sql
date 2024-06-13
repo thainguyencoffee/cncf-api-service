@@ -14,6 +14,15 @@ CREATE TABLE post
     CONSTRAINT pk_post PRIMARY KEY (id)
 );
 
+CREATE TABLE post_photos
+(
+    post_id UUID NOT NULL,
+    photo   VARCHAR(255)
+);
+
+ALTER TABLE post_photos
+    ADD CONSTRAINT fk_post_photos_on_post FOREIGN KEY (post_id) REFERENCES post (id);
+
 CREATE TABLE interact
 (
     id                 UUID                        NOT NULL,

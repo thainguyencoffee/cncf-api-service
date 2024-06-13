@@ -4,8 +4,7 @@ import com.cloudinary.Cloudinary;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class CloudinaryUtils {
 
@@ -26,6 +25,33 @@ public class CloudinaryUtils {
     // write a method to split url
     public static String convertUrlToPublicId(String url) {
         return url.substring(url.lastIndexOf("/") + 1);
+    }
+
+    public static List<String> convertListMultipartFileToListUrl(List<MultipartFile> input, Cloudinary cloudinary) {
+        return Optional.of(input)
+                .filter(list -> !list.isEmpty())
+                .map(multipartFiles -> {
+                    var photos = new ArrayList<String>();
+                    multipartFiles.forEach(multipartFile -> {
+                        try {
+                            photos.add(CloudinaryUtils.uploadFile(multipartFile, cloudinary));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    return photos;
+                }).orElseGet(() -> null);
+    }
+
+    public static String convertSingleMultipartFileToUrl(MultipartFile input, Cloudinary cloudinary) {
+        return Optional.of(input)
+                .map(multipartFile -> {
+                    try {
+                        return CloudinaryUtils.uploadFile(multipartFile, cloudinary);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).orElseGet(() -> null);
     }
 
 }
