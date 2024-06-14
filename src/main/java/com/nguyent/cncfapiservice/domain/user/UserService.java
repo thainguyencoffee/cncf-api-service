@@ -5,6 +5,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
 
@@ -16,4 +17,5 @@ public interface UserService {
 
     UserRepresentation updateUserById(String userId, UserUpdateDto userUpdateDto);
 
+    void sendVerificationEmail(UUID userId);
 }

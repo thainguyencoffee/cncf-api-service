@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -129,6 +130,18 @@ public class UserServiceImpl implements UserService {
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public void sendVerificationEmail(UUID userId) {
+        log.info("UserServiceImpl.sendVerificationEmail with id {}", userId);
+        try (var keycloak = keycloakUtils.getKeycloak()) {
+            keycloak.realm(REALM).users().get(userId.toString()).executeActionsEmail(List.of("VERIFY_EMAIL"));
+        } catch (NotFoundException ex) {
+            throw new UserRepresentationNotFoundException(userId.toString());
+        } catch (Exception ex) {
+            throw new RuntimeException("Failed to send verification email to user with id " + userId, ex);
         }
     }
 }

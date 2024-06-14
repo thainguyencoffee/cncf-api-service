@@ -11,6 +11,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping(produces = "application/json")
@@ -48,6 +50,15 @@ public class UserController {
         log.info("UserController updateUser");
         return new ResponseApi("OK", 200, "User updated successfully.",
                 null, userService.updateUserById(jwt.getSubject(), userUpdateDto));
+    }
+
+    @PostMapping("/users/send-verification-email")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseApi sendVerificationEmail(@AuthenticationPrincipal Jwt jwt) {
+        log.info("UserController sendVerificationEmail");
+        userService.sendVerificationEmail(UUID.fromString(jwt.getSubject()));
+        return new ResponseApi("OK", 200, "Send verification email successfully.",
+                null, null);
     }
 
 }

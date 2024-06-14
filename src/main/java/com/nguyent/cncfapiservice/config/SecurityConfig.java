@@ -21,6 +21,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.PUT, "/users/**").hasRole("user")
+                        .requestMatchers(HttpMethod.POST, "/users/**").hasRole("user")
                         .requestMatchers(HttpMethod.POST, "/posts/**", "/interacts/**", "/comments/**").hasRole("user")
                         .requestMatchers(HttpMethod.PUT, "/posts/**", "/interacts/**", "/comments/**").hasRole("user")
                         .requestMatchers(HttpMethod.DELETE, "/posts/**").hasRole("user")
